@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({ data }) => {
-  console.log(data);
+const Dashboard = ({ data, remove }) => {
   return (
     <div>
       <h1>Hello, admin</h1>
-      <Link to="/admin/product-add" className="btn btn-primary">
+      <Link to="/admin/product-form" className="btn btn-primary">
         Add new product
       </Link>
       <table className="table table-bordered table-striped text-center">
@@ -35,8 +34,15 @@ const Dashboard = ({ data }) => {
                 )}
               </td>
               <td>
-                <button className="btn btn-danger">Delete</button>
-                <button className="btn btn-warning">Edit</button>
+                <button className="btn btn-danger" onClick={() => remove(p.id)}>
+                  Delete
+                </button>
+                <Link
+                  to={`/admin/product-form/${p.id}`}
+                  className="btn btn-warning"
+                >
+                  Edit
+                </Link>
               </td>
             </tr>
           ))}
