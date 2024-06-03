@@ -58,7 +58,7 @@ const ProductForm = ({ onProduct }) => {
             id="price"
             {...register("price", { required: true, valueAsNumber: true })}
           />
-          {errors.price?.message && (
+          {errors.price && (
             <p className="text-danger">{errors.price?.message}</p>
           )}
         </div>
@@ -72,8 +72,8 @@ const ProductForm = ({ onProduct }) => {
             id="description"
             {...register("description")}
           />
-          {errors.description?.message && (
-            <p className="text-danger">{errors.description?.message}</p>
+          {errors.description && (
+            <p className="text-danger">{errors?.description?.message}</p>
           )}
         </div>
         <div className="mb-3">

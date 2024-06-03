@@ -8,8 +8,9 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Notfound from "./pages/Notfound";
 import instance, { getProducts } from "./axios";
-import Dashboard from "./pages/admin/dashboard";
+import Dashboard from "./pages/admin/Dashboard";
 import ProductForm from "./pages/admin/ProductForm";
+import Register from "./pages/Register";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -70,7 +71,6 @@ function App() {
           <Route path="/" element={<Home data={products} />} />
           <Route path="/home" element={<Navigate to="/" />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
           <Route
             path="/admin"
             element={<Dashboard data={products} remove={Remove} />}
@@ -87,6 +87,8 @@ function App() {
             path="/admin/product-form/:id"
             element={<ProductForm onProduct={handleSubmitForm} />}
           />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </main>

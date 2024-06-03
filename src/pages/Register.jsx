@@ -3,10 +3,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import instance from "../axios";
 import authSchema from "./../ShemaValid/authSchema";
-import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const nav = useNavigate();
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -17,19 +15,17 @@ const Login = () => {
   const onSubmit = (data) => {
     (async () => {
       try {
-        await instance.post(`/login`, data);
-        if (confirm("Đăng nhập thành công, chuyển hướng sang Home ")) {
-          nav("/");
-        }
+        const res = await instance.post(`/register`, data);
+        console.log(res);
       } catch (error) {
-        alert(error?.response.data);
+        console.log(error);
       }
     })();
   };
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Login</h1>
+        <h1>Register</h1>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             email
@@ -61,7 +57,7 @@ const Login = () => {
 
         <div className="mb-3">
           <button className="btn btn-primary w-100" type="submit">
-            Login
+            Register
           </button>
         </div>
       </form>
@@ -69,4 +65,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
