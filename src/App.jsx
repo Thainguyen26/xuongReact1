@@ -11,6 +11,7 @@ import instance, { getProducts } from "./axios";
 import Dashboard from "./pages/admin/Dashboard";
 import ProductForm from "./pages/admin/ProductForm";
 import Register from "./pages/Register";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -71,22 +72,22 @@ function App() {
           <Route path="/" element={<Home data={products} />} />
           <Route path="/home" element={<Navigate to="/" />} />
           <Route path="/about" element={<About />} />
-          <Route
-            path="/admin"
-            element={<Dashboard data={products} remove={Remove} />}
-          />
-          {/* <Route
-            path="/admin/product-add"
-            element={<Dashboard data={products} />}
-          /> */}
-          <Route
-            path="/admin/product-form"
-            element={<ProductForm onProduct={handleSubmitForm} />}
-          />
-          <Route
-            path="/admin/product-form/:id"
-            element={<ProductForm onProduct={handleSubmitForm} />}
-          />
+
+          <Route path="/admin" element={<PrivateRoute />}>
+            <Route
+              path="/admin"
+              element={<Dashboard data={products} remove={Remove} />}
+            />
+            <Route
+              path="/admin/product-form"
+              element={<ProductForm onProduct={handleSubmitForm} />}
+            />
+            <Route
+              path="/admin/product-form/:id"
+              element={<ProductForm onProduct={handleSubmitForm} />}
+            />
+          </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Notfound />} />

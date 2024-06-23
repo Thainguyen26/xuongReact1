@@ -3,8 +3,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import instance from "../axios";
 import authSchema from "./../ShemaValid/authSchema";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const nav = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,6 +18,9 @@ const Register = () => {
     (async () => {
       try {
         const res = await instance.post(`/register`, data);
+        if (confirm(" đăng nhập thành công Chuyển sang đăng nhập")) {
+          nav("/login");
+        }
         console.log(res);
       } catch (error) {
         console.log(error);

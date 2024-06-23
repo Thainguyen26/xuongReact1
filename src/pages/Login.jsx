@@ -17,7 +17,8 @@ const Login = () => {
   const onSubmit = (data) => {
     (async () => {
       try {
-        await instance.post(`/login`, data);
+        const res = await instance.post(`/login`, data);
+        localStorage.setItem("user", JSON.stringify(res.data));
         if (confirm("Đăng nhập thành công, chuyển hướng sang Home ")) {
           nav("/");
         }
