@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../../contexts/ProductsContext";
+import instance from "../../axios";
 
-const Dashboard = ({ data, remove }) => {
+const Dashboard = () => {
+  const { state, dispatch } = useContext(ProductContext);
+
+  const handlerDelete = async (id) => {
+    if (window.confirm("Bạn có muốn xóa không ?")) {
+      try {
+        if (confirm("Bạn có muốn xóa không?")) {
+          await instance.delete(`/products/${id}`);
+          dispatch({ type: "DELETE_PRODUCT", payload: id });
+        }
+      } catch (error) {
+        console.log("Không thể xóa sản phẩm", error);
+      }
+    }
+  };
+
   return (
     <div>
       <h1>Hello, admin</h1>
@@ -20,7 +37,7 @@ const Dashboard = ({ data, remove }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((p) => (
+          {state.products.map((p) => (
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.title}</td>
@@ -34,7 +51,10 @@ const Dashboard = ({ data, remove }) => {
                 )}
               </td>
               <td>
-                <button className="btn btn-danger" onClick={() => remove(p.id)}>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handlerDelete(p.id)}
+                >
                   Delete
                 </button>
                 <Link
